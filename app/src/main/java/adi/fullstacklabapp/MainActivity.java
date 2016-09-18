@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String URL = "http://localhost:3000/api/koans";
+    public static final String URL = "http://192.168.0.12:3000/api/koans";
     private TextView koans;
 
     @Override
@@ -48,19 +48,11 @@ public class MainActivity extends AppCompatActivity {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setDoInput(true);
-            // Starts the query
             conn.connect();
             is = conn.getInputStream();
-
-            // Convert the InputStream into a string
             String contentAsString = readIt(is);
-
             String processedJson = parseJson(contentAsString);
-
             return processedJson;
-
-            // Makes sure that the InputStream is closed after the app is
-            // finished using it.
         } finally {
             if (is != null) {
                 is.close();
@@ -70,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String parseJson(String contentAsString) throws JSONException {
         StringBuilder koanList = new StringBuilder();
-        JSONObject object = new JSONObject(contentAsString);
-        JSONArray array = object.getJSONArray("koans");
+        JSONArray array = new JSONArray(contentAsString);
+//        JSONArray array = object.getJSONArray("koans");
         for (int i=0; i<array.length(); i++){
             JSONObject koan = array.getJSONObject(i);
             String title = koan.getString("title");
@@ -85,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(stream));
         String read;
-
         while ((read = br.readLine()) != null) {
             sb.append(read);
         }
