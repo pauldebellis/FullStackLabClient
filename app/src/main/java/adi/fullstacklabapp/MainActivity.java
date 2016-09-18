@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String URL = "http://192.168.0.12:3000/api/koans";
+    public static final String URL = "http://full-stack-lab-server.herokuapp.com/api/koans";
     private TextView koans;
 
     @Override
